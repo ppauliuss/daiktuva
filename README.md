@@ -14,6 +14,19 @@ Stackas veikia kaip katalogas:
 - krepšelis ir checkout isjungti;
 - veliau galima ijungti WooCommerce pirkima ir Dokan pardaveju marketplace funkcijas.
 
+## Ekrano vaizdai
+
+| | |
+| --- | --- |
+| ![Pagrindinis](docs/screenshots/pagrindinis-1440.png) | ![Katalogas](docs/screenshots/katalogas-1440.png) |
+| Pagrindinis su paieska ir naujausiais skelbimais | Katalogas su filtrais ir rusiavimu |
+| ![Skelbimas](docs/screenshots/skelbimas-1440.png) | ![Pardavejai](docs/screenshots/pardavejai-1440.png) |
+| Skelbimas: busena, pardavejo kortele, kontaktai | Pardaveju sarasas su generuotais avatarais |
+
+Mobilus vaizdas: [pagrindinis](docs/screenshots/pagrindinis-390.png) - [katalogas](docs/screenshots/katalogas-390.png)
+
+Telefonu numeriai vaizduose uzmaskuoti.
+
 ## Stackas
 
 - WordPress `php8.3-apache`, MariaDB 11.4, Redis 7, Meilisearch

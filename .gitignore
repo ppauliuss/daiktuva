@@ -18,6 +18,7 @@ brand-recolor/
 *.tar.gz
 *.jpg
 *.png
+!docs/screenshots/*.png
 posts-dump.txt
 
 # OS
