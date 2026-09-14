@@ -1,0 +1,368 @@
+/*
+Theme Name: Daiktuva
+Theme URI: https://daiktuva.lt
+Template: astra
+Author: Daiktuva
+Description: Daiktuva marketplace vaikine tema (skelbiu.lt principu) - balta + salta melyna.
+Version: 1.1.0
+*/
+
+:root{
+  --dk-accent:#2563eb;
+  --dk-accent-dark:#0f4c81;
+  --dk-accent-soft:#eaf2fd;
+  --dk-warm:#d97706;
+  --dk-ink:#1f2430;
+  --dk-text:#222;
+  --dk-muted:#7a828e;
+  --dk-border:#e7e9ee;
+  --dk-bg:#f3f4f7;
+}
+
+body{ background:var(--dk-bg); color:var(--dk-text); }
+.ast-container{ max-width:1240px; }
+a{ text-decoration:none; }
+
+/* ---------- HEADER ---------- */
+.site-header{ background:#fff; box-shadow:0 1px 0 var(--dk-border), 0 2px 10px rgba(0,0,0,.03); position:sticky; top:0; z-index:99; }
+.site-title a, .ast-logo-title-inline .site-title a{ font-weight:800; letter-spacing:-.02em; }
+.site-title a::after{ content:"."; color:var(--dk-accent); }
+/* Custom logo (monograma) vietoj teksto */
+.site-title{ display:none !important; }
+.custom-logo-link img, img.custom-logo{ max-height:46px !important; width:auto !important; }
+.main-header-menu .menu-link{ font-size:14px; font-weight:600; }
+.main-header-menu a:hover{ color:var(--dk-accent-dark) !important; }
+
+/* CTA "Ideti skelbima" */
+.dk-cta > a{
+  background:#0F4C81 !important; color:#fff !important;
+  border-radius:999px; padding:8px 18px !important; font-weight:700; line-height:1;
+  box-shadow:0 2px 8px rgba(15,76,129,.28);
+}
+.dk-cta > a:hover{ background:#0B3760 !important; color:#fff !important; }
+
+/* ---------- PAIESKOS JUOSTA (po header, vidiniuose) ---------- */
+.dk-searchband{ background:#fff; border-bottom:1px solid var(--dk-border); }
+.dk-sb-inner{ max-width:1240px; margin:0 auto; padding:12px 20px; }
+.home .dk-searchband{ display:none; } /* pradiniame yra hero paieska */
+
+.dk-search{ display:flex; gap:8px; width:100%; max-width:720px; margin:0 auto; }
+.dk-search input[type=search]{ flex:1; padding:11px 16px; border:1px solid var(--dk-border); border-radius:10px; font-size:15px; outline:none; }
+.dk-search input[type=search]:focus{ border-color:var(--dk-accent); box-shadow:0 0 0 3px rgba(255,105,0,.15); }
+.dk-search button{ background:var(--dk-accent); color:#fff; border:0; border-radius:10px; padding:0 24px; font-weight:700; cursor:pointer; font-size:15px; }
+.dk-search button:hover{ background:var(--dk-accent-dark); }
+
+/* ---------- HERO (pradinis) ---------- */
+.home .entry-title, .home .ast-archive-description, .home .ast-single-post .entry-header{ display:none; }
+.home.ast-plain-container.ast-no-sidebar #primary,
+.home #primary{ margin-top:8px !important; padding-top:0 !important; }
+.home .entry-content{ margin-top:0; padding-top:0; }
+.home .site-content .ast-container{ padding-top:0 !important; }
+.dk-hero{ background:linear-gradient(135deg,#fff7f0 0%,#ffffff 70%); border:1px solid var(--dk-border); border-radius:12px; padding:18px 20px; margin:0 0 12px; text-align:center; max-width:none; }
+.dk-hero-inner{ max-width:660px; margin:0 auto; }
+.dk-hero h1{ font-size:24px; font-weight:800; letter-spacing:0; margin:0 0 4px; color:var(--dk-ink); }
+.dk-hero p{ color:var(--dk-muted); font-size:14px; margin:0 0 10px; }
+.dk-search-lg input[type=search]{ padding:10px 14px; font-size:15px; border-radius:9px; }
+.dk-search-lg button{ padding:0 20px; font-size:15px; border-radius:9px; }
+
+/* ---------- LAYOUTAS: sidebar + tinklelis ---------- */
+.dk-home{ display:flex; gap:16px; align-items:flex-start; }
+.dk-sidebar{ flex:0 0 248px; background:#fff; border:1px solid var(--dk-border); border-radius:14px; padding:12px 8px; position:sticky; top:78px; }
+.dk-main{ flex:1; min-width:0; }
+.dk-sidebar h3{ font-size:12px; margin:6px 12px 10px; text-transform:uppercase; letter-spacing:.06em; color:var(--dk-muted); }
+.dk-cats{ list-style:none; margin:0; padding:0; }
+.dk-cats a{ display:flex; justify-content:space-between; align-items:center; padding:9px 12px; border-radius:8px; color:var(--dk-text); font-size:14.5px; }
+.dk-cats a:hover{ background:var(--dk-accent-soft); color:var(--dk-accent-dark); }
+.dk-cats .count{ color:var(--dk-muted); font-size:12px; background:#eef0f3; border-radius:999px; padding:1px 9px; }
+@media(max-width:880px){ .dk-home{ flex-direction:column; } .dk-sidebar{ flex:none; width:100%; position:static; order:2; } .dk-main{ order:1; } }
+
+/* ---------- RUSIAVIMO JUOSTA ---------- */
+.dk-sortbar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 12px; padding:8px 10px; background:#fff; border:1px solid var(--dk-border); border-radius:10px; }
+.dk-sort-label{ font-size:13px; color:var(--dk-muted); font-weight:600; margin-right:2px; }
+.dk-sort{ font-size:13.5px; font-weight:600; color:var(--dk-text); padding:6px 13px; border-radius:999px; border:1px solid var(--dk-border); background:#fff; transition:.14s; }
+.dk-sort:hover{ border-color:var(--dk-accent); color:var(--dk-accent-dark); }
+.dk-sort.is-active{ background:var(--dk-accent); border-color:var(--dk-accent); color:#fff; }
+.dk-result-count{ margin-left:auto; font-size:13px; color:var(--dk-muted); }
+
+/* ---------- PUSLAPIAVIMAS ---------- */
+.dk-pagination{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin:26px 0 6px; }
+.dk-page{ min-width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; padding:0 12px; border:1px solid var(--dk-border); border-radius:10px; background:#fff; color:var(--dk-text); font-weight:600; font-size:15px; transition:.14s; }
+.dk-page:hover{ border-color:var(--dk-accent); color:var(--dk-accent-dark); }
+.dk-page.current{ background:var(--dk-accent); border-color:var(--dk-accent); color:#fff; cursor:default; }
+.dk-prev,.dk-next{ font-size:20px; line-height:1; }
+.dk-empty{ color:var(--dk-muted); padding:20px 0; }
+
+/* sekciju antrastes su akcentu */
+.dk-main h2{ font-size:20px; margin:0 0 10px; padding-left:10px; border-left:4px solid var(--dk-accent); line-height:1.1; }
+.dk-archive{ padding:22px 0; }
+.dk-cat-title{ font-size:24px; margin:0 0 8px; padding-left:12px; border-left:4px solid var(--dk-accent); line-height:1.15; }
+.dk-cat-desc{ color:var(--dk-muted); margin:0 0 16px; }
+.dk-main .woocommerce-pagination{ margin-top:22px; }
+.dk-main .woocommerce-pagination .current{ background:var(--dk-accent) !important; border-color:var(--dk-accent) !important; color:#fff !important; }
+
+/* ---------- PREKIU KORTELES ---------- */
+ul.products{ gap:18px !important; }
+/* Pradiniame puslapyje (static page) priverstinai 4 stulpeliai x eilutes */
+.dk-main ul.products{ display:grid !important; grid-template-columns:repeat(4,1fr) !important; gap:18px !important; margin:0 !important; padding:0 !important; list-style:none; }
+.dk-main ul.products li.product{ width:auto !important; margin:0 !important; float:none !important; clear:none !important; }
+.dk-main ul.products::before,.dk-main ul.products::after{ display:none !important; content:none !important; }
+@media(max-width:1080px){ .dk-main ul.products{ grid-template-columns:repeat(3,1fr) !important; } }
+@media(max-width:760px){ .dk-main ul.products{ grid-template-columns:repeat(2,1fr) !important; } }
+@media(max-width:460px){ .dk-main ul.products{ grid-template-columns:1fr !important; } }
+ul.products li.product{ background:#fff; border:1px solid var(--dk-border); border-radius:14px; padding:12px !important; margin:0 !important; transition:box-shadow .16s, transform .16s, border-color .16s; }
+ul.products li.product:hover{ box-shadow:0 10px 26px rgba(20,23,33,.10); transform:translateY(-3px); border-color:#dfe2e8; }
+ul.products li.product a img{ border-radius:10px; margin-bottom:12px !important; aspect-ratio:4/3; object-fit:contain; width:100%; background:#f0f1f4; } /* 2026-08-21: contain — visa foto telpa, nebeapkarpoma */
+/* Isimtis: pardavejo avataras eilutes gale — bendra img taisykle jo neresize'intu */
+ul.products li.product a img.dk-seller__avatar{ width:20px !important; height:20px !important; aspect-ratio:auto !important; object-fit:contain !important; display:inline-block !important; margin:0 0 0 4px !important; border-radius:6px !important; background:none !important; vertical-align:-4px; }
+ul.products li.product .woocommerce-loop-product__title{
+  font-size:15px !important; font-weight:600 !important; padding:0 2px !important; color:var(--dk-ink);
+  line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.7em;
+}
+ul.products li.product .price{ color:var(--dk-warm) !important; font-weight:800 !important; font-size:19px !important; display:block; margin:6px 2px 2px; }
+ul.products li.product .price del{ color:var(--dk-muted) !important; font-weight:400 !important; font-size:13px !important; }
+ul.products li.product .dk-loc{ display:block; color:var(--dk-muted); font-size:12.5px; padding:2px 2px 0; }
+ul.products li.product .dk-date{ display:inline-block; color:#94a3b8; font-size:12px; padding:0 2px; }
+/* katalogo rezimas: slepiam "i krepseli" */
+ul.products li.product .add_to_cart_button, ul.products li.product .button.product_type_simple, ul.products li.product .added_to_cart{ display:none !important; }
+
+/* ---------- FOOTER (tamsus + Astra kredito maskavimas) ---------- */
+.site-footer{ background:var(--dk-ink) !important; color:#c7cdd6 !important; }
+.site-footer a{ color:#fff !important; }
+.ast-footer-copyright{ padding:18px 0 !important; text-align:center; }
+/* Paslepiam numatytaji "Copyright ... | Powered by Astra WordPress Theme" ir rodom savo */
+.ast-footer-copyright p{ font-size:0 !important; line-height:0; margin:0; }
+.ast-footer-copyright p a{ display:none !important; }
+.ast-footer-copyright p::after{
+  content:"© 2026 Daiktuva. Visos teisės saugomos.";
+  font-size:14px; line-height:1.6; color:#c7cdd6;
+}
+
+/* ---------- REKLAMOS ZONOS (Google AdSense) ---------- */
+.dk-ad{ background:#eef0f4; border:1px dashed #c9d0db; border-radius:10px; color:#9aa3af; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.dk-ad-leader{ min-height:90px; margin:0 0 18px; }
+.dk-ad-infeed{ min-height:110px; margin:20px 0 4px; }
+.dk-ad-side{ min-height:250px; margin-top:14px; }
+.dk-ad-label{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#b6bcc6; }
+.dk-ad ins{ width:100%; }
+
+/* ---------- PARDAVEJAS / VIETA KORTELEJE ---------- */
+.dk-seller{ display:block; font-size:12.5px; color:var(--dk-muted); padding:3px 2px 0; }
+.dk-seller:hover{ color:var(--dk-accent-dark); }
+.dk-loc{ display:block; font-size:12.5px; color:var(--dk-muted); padding:2px 2px 0; }
+.dk-quality-badges{ display:flex; flex-wrap:wrap; gap:5px; margin:7px 2px 0; }
+.dk-quality-badges span{ background:#f6f7f9; border:1px solid var(--dk-border); border-radius:999px; color:#5d6673; font-size:11.5px; font-weight:700; line-height:1; padding:4px 7px; }
+.dk-price-change{ border-radius:999px; font-size:11.5px; font-weight:800; line-height:1; padding:4px 7px; }
+.dk-price-change.is-down{ background:#ecfdf3; border:1px solid #bbf7d0; color:#15803d; }
+.dk-price-change.is-up{ background:#fff1f2; border:1px solid #fecdd3; color:#be123c; }
+.dk-save-btn{ background:#fff !important; border:1px solid var(--dk-border) !important; border-radius:8px !important; color:var(--dk-ink) !important; cursor:pointer; display:block; font-size:12.5px !important; font-weight:700 !important; line-height:1 !important; margin:8px 2px 0 !important; padding:8px 10px !important; text-align:center; width:calc(100% - 4px); }
+.dk-save-btn:hover,.dk-save-btn.is-saved{ background:var(--dk-accent-soft) !important; border-color:var(--dk-accent) !important; color:var(--dk-accent-dark) !important; }
+
+/* ---------- VIENO SKELBIMO PUSLAPIS ---------- */
+.single-product div.product .price,
+.single-product div.product p.price{ color:var(--dk-warm) !important; font-weight:800 !important; font-size:26px !important; }
+.dk-single-meta{ display:flex; gap:18px; flex-wrap:wrap; margin:10px 0 16px; font-size:14.5px; }
+.dk-single-meta .dk-loc, .dk-single-meta .dk-seller{ display:inline; padding:0; color:var(--dk-muted); }
+.dk-listing-meta{ font-size:12.5px; color:#94a3b8; margin:0 0 10px; }
+.single-product div.product form.cart .button,
+.single-product div.product .single_add_to_cart_button{ display:none !important; }
+.dk-single-trust{ background:#fff; border:1px solid var(--dk-border); border-radius:12px; margin:12px 0 16px; padding:12px; }
+.dk-single-trust__badges{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:10px; }
+.dk-single-trust__badges span{ background:var(--dk-accent-soft); border:1px solid #ffd9bf; border-radius:999px; color:var(--dk-accent-dark); font-size:12.5px; font-weight:700; padding:5px 9px; }
+.dk-single-trust__badges .dk-price-change.is-down{ background:#ecfdf3; border-color:#bbf7d0; color:#15803d; }
+.dk-single-trust__badges .dk-price-change.is-up{ background:#fff1f2; border-color:#fecdd3; color:#be123c; }
+.dk-save-btn--single{ margin:0 !important; max-width:260px; width:100%; }
+.dk-safety-box{ background:#fff7f0; border:1px solid #ffd9bf; border-radius:12px; color:#3a4150; margin:18px 0; padding:15px 17px; }
+.dk-safety-box strong{ color:var(--dk-ink); display:block; margin-bottom:8px; }
+.dk-safety-box ul{ margin:0; padding-left:18px; }
+.dk-safety-box li{ margin:0 0 5px; }
+
+/* ---------- PARDAVEJO PUSLAPIS ---------- */
+.dk-store-trust{ background:#fff; border:1px solid var(--dk-border); border-radius:12px; display:flex; gap:18px; justify-content:space-between; margin-top:18px; margin-bottom:18px; padding:16px 18px; }
+.dk-store-trust strong{ color:var(--dk-ink); display:block; font-size:18px; margin-bottom:4px; }
+.dk-store-trust p{ color:var(--dk-muted); margin:0; max-width:560px; }
+.dk-store-trust ul{ display:flex; flex-wrap:wrap; gap:10px; list-style:none; margin:0; padding:0; }
+.dk-store-trust li{ background:#f6f7f9; border:1px solid var(--dk-border); border-radius:10px; color:var(--dk-muted); font-size:13px; padding:8px 10px; }
+.dk-store-trust li span{ color:var(--dk-ink); display:block; font-weight:800; }
+.dk-copy-store{ align-self:center; background:#0F4C81; border:0; border-radius:9px; color:#fff; cursor:pointer; font-weight:800; padding:10px 13px; white-space:nowrap; }
+
+/* ---------- FOOTERIO NUORODOS ---------- */
+.dk-footer-links{ background:var(--dk-ink); color:#aeb6c2; border-top:1px solid rgba(255,255,255,.06); }
+.dk-fl-inner{ max-width:1240px; margin:0 auto; padding:38px 20px 14px; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:28px; }
+.dk-fcol h4{ color:#fff; font-size:14px; margin:0 0 12px; letter-spacing:.02em; }
+.dk-fcol ul{ list-style:none; margin:0; padding:0; }
+.dk-fcol li{ margin:0 0 8px; }
+.dk-fcol a{ color:#aeb6c2 !important; font-size:14px; }
+.dk-fcol a:hover{ color:#fff !important; }
+.dk-fcol p{ font-size:14px; color:#9aa3af; line-height:1.6; }
+@media(max-width:760px){ .dk-fl-inner{ grid-template-columns:1fr 1fr; gap:22px; } }
+
+/* ---------- KATALOGO REZIMAS (telefonas/busena) ---------- */
+.daiktuva-call-button,
+.daiktuva-contact-button{ background:#0F4C81 !important; border-color:#0F4C81 !important; color:#fff !important; }
+.daiktuva-call-button:hover,
+.daiktuva-contact-button:hover{ background:#0B3760 !important; border-color:#0B3760 !important; }
+.daiktuva-status, .daiktuva-listing-status{ color:#0F4C81 !important; }
+ul.products li.product .button.daiktuva-call-button,
+ul.products li.product .button.daiktuva-contact-button,
+ul.products li.product .daiktuva-disabled{ display:block !important; width:100%; text-align:center; margin-top:8px; font-size:13px; border-radius:8px; }
+ul.products li.product{ position:relative; }
+.daiktuva-listing-status{ position:absolute; top:16px; left:16px; z-index:2; background:#fff; padding:3px 9px; border-radius:6px; box-shadow:0 1px 5px rgba(0,0,0,.14); font-size:11px; }
+.daiktuva-contact-panel{ border-radius:12px !important; border-color:var(--dk-border) !important; }
+
+/* ---------- PRADINIO PUSLAPIO PASITIKEJIMAS / PROCESAS ---------- */
+.dk-home-info{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:22px 0 10px; }
+.dk-info-card{ background:#fff; border:1px solid var(--dk-border); border-radius:10px; padding:12px; }
+.dk-info-card strong{ color:var(--dk-ink); display:block; font-size:14px; margin-bottom:4px; }
+.dk-info-card p{ color:var(--dk-muted); font-size:13px; line-height:1.45; margin:0; }
+.dk-trust-strip{ align-items:center; background:#fff; border:1px solid var(--dk-border); border-radius:10px; display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; margin:10px 0 0; padding:10px 12px; }
+.dk-trust-strip span{ color:var(--dk-muted); font-size:13px; }
+.dk-popular{ background:#fff; border:1px solid var(--dk-border); border-radius:10px; margin:22px 0 14px; padding:12px; }
+.dk-popular strong{ color:var(--dk-ink); display:block; font-size:14px; margin-bottom:9px; }
+.dk-popular-links{ display:flex; flex-wrap:wrap; gap:8px; }
+.dk-popular-links a{ background:var(--dk-accent-soft); border:1px solid #dbe1ee; border-radius:999px; color:var(--dk-accent-dark); font-size:13.5px; font-weight:700; padding:6px 11px; }
+.dk-popular-links a:hover{ background:var(--dk-accent); color:#fff; }
+@media(max-width:760px){
+  .home #primary{ margin-top:4px !important; }
+  .dk-hero{ padding:12px; margin-bottom:10px; text-align:left; }
+  .dk-hero h1{ font-size:21px; }
+  .dk-hero p{ font-size:13px; margin-bottom:9px; }
+  .dk-hero-inner{ max-width:none; }
+  .dk-search-lg{ max-width:none; }
+  .dk-search-lg input[type=search]{ min-width:0; padding:10px 11px; }
+  .dk-search-lg button{ padding:0 14px; }
+  /* 2026-08-20: CTA po paieškos — pilno pločio mygtukas su aiškiu tarpu
+     (anksčiau "Ieškoti" ir "Įdėti skelbimą" prilipdavo be tarpo). */
+  .dk-hero .dk-hero-cta a.dk-btn{ display:block; width:100%; box-sizing:border-box;
+    text-align:center; padding:13px 18px; font-size:16px; }
+  .dk-main h2{ font-size:18px; margin-bottom:8px; }
+  .dk-sortbar{ gap:6px; margin-bottom:10px; padding:8px; }
+  .dk-sort-label{ display:none; }
+  .dk-sort{ font-size:12.5px; padding:6px 9px; }
+  .dk-result-count{ flex-basis:100%; margin-left:0; }
+  .dk-home-info{ grid-template-columns:1fr; margin-top:18px; }
+  .dk-trust-strip{ align-items:flex-start; flex-direction:column; }
+  .dk-popular{ margin-top:18px; }
+}
+
+/* ---------- STRAIPSNIAI BE DATU ---------- */
+.single-post .entry-meta,
+.single-post .posted-on,
+.blog .entry-meta,
+.blog .posted-on,
+.archive.category .entry-meta,
+.archive.category .posted-on,
+.ast-article-post .entry-meta,
+.ast-article-post .posted-on{ display:none !important; }
+.dk-article-links{ background:#fff; border:1px solid var(--dk-border); border-radius:12px; display:flex; flex-wrap:wrap; gap:8px; margin:26px 0 4px; padding:14px 16px; }
+.dk-article-links strong{ color:var(--dk-ink); margin-right:4px; }
+.dk-article-links a{ background:var(--dk-accent-soft); border:1px solid #dbe1ee; border-radius:999px; color:var(--dk-accent-dark); font-size:13.5px; font-weight:700; padding:5px 10px; }
+.dk-article-links a:hover{ background:var(--dk-accent); color:#fff; }
+
+/* ---------- PANASUS SKELBIMAI ---------- */
+.dk-related-products{ margin:34px 0 8px; }
+.dk-related-products h2{ font-size:21px; margin:0 0 16px; padding-left:12px; border-left:4px solid var(--dk-accent); line-height:1.1; }
+
+/* ---------- MOBILE STICKY / ISIMINTI ---------- */
+.dk-mobile-sticky{ display:none; }
+.dk-saved-panel[hidden]{ display:none; }
+.dk-saved-panel{ background:rgba(17,24,39,.42); bottom:0; left:0; position:fixed; right:0; top:0; z-index:100000; }
+.dk-saved-panel__inner{ background:#fff; border-radius:14px 14px 0 0; bottom:0; left:0; max-height:70vh; overflow:auto; padding:16px; position:absolute; right:0; }
+.dk-saved-panel__head{ align-items:center; display:flex; justify-content:space-between; margin-bottom:12px; }
+.dk-saved-panel__head button{ background:#f3f4f6; border:1px solid var(--dk-border); border-radius:8px; color:var(--dk-ink); padding:8px 10px; }
+.dk-saved-list{ display:grid; gap:8px; }
+.dk-saved-list__title{ color:var(--dk-ink); display:block; font-size:13px; margin:8px 0 2px; }
+.dk-saved-list a{ background:#f8fafc; border:1px solid var(--dk-border); border-radius:9px; color:var(--dk-ink); font-weight:700; padding:10px; }
+.dk-account-hub{ margin:0 auto; max-width:1120px; padding:18px 0 34px; }
+.dk-account-head{ align-items:flex-start; display:flex; gap:18px; justify-content:space-between; margin-bottom:14px; }
+.dk-account-head h1{ font-size:30px; line-height:1.15; margin:0 0 6px; }
+.dk-account-head p,.dk-account-note,.dk-account-empty{ color:var(--dk-muted); margin:0; }
+.dk-account-actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
+.dk-account-actions a{ background:#0F4C81; border:1px solid #0F4C81; border-radius:9px; color:#fff; font-weight:800; padding:10px 14px; text-decoration:none; }
+.dk-account-actions a + a{ background:#fff; color:#0F4C81; }
+.dk-account-note{ background:#f8fafc; border:1px solid var(--dk-border); border-radius:10px; margin:0 0 14px; padding:10px 12px; }
+.dk-account-grid{ display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.dk-account-section{ background:#fff; border:1px solid var(--dk-border); border-radius:12px; padding:14px; }
+.dk-account-section h2{ font-size:18px; line-height:1.2; margin:0 0 12px; }
+.dk-account-list{ display:grid; gap:8px; }
+.dk-account-item{ background:#f8fafc; border:1px solid var(--dk-border); border-radius:9px; color:var(--dk-ink); display:block; padding:10px 11px; text-decoration:none; }
+.dk-account-item:hover{ border-color:#0F4C81; color:#0F4C81; }
+.dk-account-item strong{ display:block; font-size:14px; line-height:1.25; }
+.dk-account-item span{ color:var(--dk-muted); display:block; font-size:12.5px; margin-top:4px; }
+@media(max-width:760px){
+  body{ padding-bottom:54px; }
+  .dk-mobile-sticky{ align-items:center; background:#fff; border-top:1px solid var(--dk-border); bottom:0; box-shadow:0 -8px 24px rgba(20,23,33,.10); display:grid; gap:4px; grid-template-columns:repeat(4,1fr); left:0; padding:5px 6px calc(5px + env(safe-area-inset-bottom)); position:fixed; right:0; z-index:99999; }
+  .dk-mobile-sticky a,.dk-mobile-sticky button{ align-items:center; background:#f6f7f9; border:1px solid var(--dk-border); border-radius:8px; color:var(--dk-ink); display:flex; font-size:11px; font-weight:800; justify-content:center; letter-spacing:-.2px; min-height:40px; padding:0 4px; text-decoration:none; white-space:nowrap; }
+  .dk-mobile-sticky__primary{ background:#0F4C81 !important; border-color:#0F4C81 !important; color:#fff !important; }
+  .dk-mobile-sticky [data-dk-saved-count]{ background:var(--dk-accent); border-radius:999px; color:#fff; display:inline-flex; font-size:9px; justify-content:center; margin-left:3px; min-width:15px; padding:1px 3px; }
+  .dk-account-head{ display:block; }
+  .dk-account-actions{ justify-content:flex-start; margin-top:12px; }
+  .dk-account-grid{ grid-template-columns:1fr; }
+  .dk-store-trust{ flex-direction:column; margin-left:16px; margin-right:16px; }
+  .dk-store-trust ul{ display:grid; grid-template-columns:1fr 1fr; }
+}
+
+/* ---------- MOBILE: lieciamu elementu tap-target >= 44px ---------- */
+@media(max-width:760px){
+  .dk-sort,
+  .dk-popular-links a,
+  .dk-cookie-btns button,
+  .daiktuva-call-button,
+  ul.products li.product .button.daiktuva-call-button,
+  .ast-on-card-button{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .ast-on-card-button{ min-width:44px; }
+  .dk-save-btn{
+    min-height:44px !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+  }
+  .dk-seller{
+    min-height:44px;
+    display:flex;
+    align-items:center;
+  }
+  .main-header-menu-toggle,
+  .main-header-menu-toggle .menu-toggle-icon{
+    min-height:44px;
+    min-width:44px;
+  }
+}
+
+/* --- Melyna Daiktuva 2026-07-04 --- */
+.dk-trust{ margin:12px 2px 0; font-size:13.5px; color:rgba(255,255,255,.95); font-weight:600; letter-spacing:.02em; }
+.dk-fav{ position:absolute; top:8px; right:8px; z-index:5; width:34px; height:34px; border-radius:50%; background:#fff; border:1px solid var(--dk-border); display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,.10); padding:0; }
+.dk-fav svg{ width:18px; height:18px; display:block; }
+.dk-fav .dkf-fill{ fill:none; stroke:#0f4c81; stroke-width:9; }
+.dk-fav.active .dkf-fill{ fill:#2563eb; stroke:#2563eb; }
+.dk-fav:hover{ border-color:#2563eb; }
+ul.products li.product{ position:relative; }
+.dk-fav-inline{ position:static; width:auto; height:auto; border-radius:8px; padding:8px 14px; display:inline-flex; gap:8px; align-items:center; font-weight:700; color:#0f4c81; }
+.dk-fav-inline.active{ background:var(--dk-accent-soft); }
+.dk-fav-inline .dkf-label::after{ content:""; }
+.dk-fav-inline.active .dkf-label{ color:#2563eb; }
+.dk-fav-demo{ position:static; display:inline-flex; width:26px; height:26px; vertical-align:middle; }
+.dk-fav-count{ display:none; margin-left:6px; background:#2563eb; color:#fff; border-radius:999px; font-size:11px; font-weight:800; min-width:18px; height:18px; align-items:center; justify-content:center; padding:0 5px; line-height:1; }
+.dk-favs-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; margin:18px 0; }
+.dk-favs-card{ background:#fff; border:1px solid var(--dk-border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
+.dk-favs-card a{ text-decoration:none; color:var(--dk-text); display:flex; flex-direction:column; }
+.dk-favs-card img{ width:100%; aspect-ratio:4/3; object-fit:contain; display:block; background:#f0f1f4; }
+.dk-favs-card .dkf-name{ padding:8px 10px 2px; font-weight:600; font-size:14px; }
+.dk-favs-card .dkf-price{ padding:0 10px 8px; color:var(--dk-warm); font-weight:800; }
+.dk-favs-card .dkf-remove{ border:0; background:transparent; color:var(--dk-muted); font-size:12px; padding:6px 10px 9px; cursor:pointer; text-align:left; }
+.dk-favs-card .dkf-remove:hover{ color:#be123c; }
+
+/* --- logo dydzio fix + krepselio ikonos slepinys (2026-07-04) --- */
+.site-logo-img img.custom-logo, .site-logo-img .custom-logo-link img{ max-height:46px !important; width:auto !important; }
+@media (max-width:640px){ .site-logo-img img.custom-logo, .site-logo-img .custom-logo-link img{ max-height:36px !important; } }
+.ast-site-header-cart{ display:none !important; } /* katalogo rezimas - krepselis nenaudojamas */
+
+/* --- 2026-07-04: Astra krepselio ikonos bug fix + Isiminti su D zenkliuku --- */
+.ast-on-card-button{ display:none !important; }
+.dk-save-btn::before{ content:""; display:inline-block; width:15px; height:15px; margin-right:7px; vertical-align:-2px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%232563eb' d='M52 18 c18 0 30 14 30 32 c0 18 -12 32 -30 32 h-24 a8 8 0 0 1 -8 -8 v-18 h32 a8 8 0 0 0 0 -16 v-22 Z'/%3E%3C/svg%3E") no-repeat center/contain; }
+.dk-save-btn.is-saved::before{ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%230f4c81' d='M52 18 c18 0 30 14 30 32 c0 18 -12 32 -30 32 h-24 a8 8 0 0 1 -8 -8 v-18 h32 a8 8 0 0 0 0 -16 v-22 Z'/%3E%3C/svg%3E") no-repeat center/contain; }
+.dk-fav.is-saved .dkf-fill{ fill:#2563eb; stroke:#2563eb; }
