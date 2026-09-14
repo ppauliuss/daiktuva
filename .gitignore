@@ -1,0 +1,25 @@
+# Secrets and local access notes
+.env
+prisijungimas*
+ADMIN-ACCESS.md
+
+# Internal infrastructure notes (host IPs, SSH paths) - not for a shared repo
+PROJECT-HISTORY.md
+
+# WordPress runtime
+wp-content/uploads/
+wp-content/cache/
+*.log
+
+# Generated media and archives - rebuilt by scripts/, too heavy for git
+article-images/
+generated-product-images/
+brand-recolor/
+*.tar.gz
+*.jpg
+*.png
+posts-dump.txt
+
+# OS
+.DS_Store
+Thumbs.db

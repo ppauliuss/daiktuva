@@ -1,0 +1,6 @@
+# The stack runs on Linux; keep LF in the repo and in checkouts on any OS.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.tar.gz binary

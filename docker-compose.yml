@@ -1,0 +1,155 @@
+services:
+  db:
+    image: mariadb:11.4
+    container_name: daiktuva-db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${MYSQL_DATABASE}
+      MARIADB_USER: ${MYSQL_USER}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+
+  redis:
+    image: redis:7-alpine
+    container_name: daiktuva-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    container_name: daiktuva-wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      DAIKTUVA_SMTP_HOST: ${DAIKTUVA_SMTP_HOST:-}
+      DAIKTUVA_SMTP_PORT: ${DAIKTUVA_SMTP_PORT:-587}
+      DAIKTUVA_SMTP_SECURE: ${DAIKTUVA_SMTP_SECURE:-tls}
+      DAIKTUVA_SMTP_USER: ${DAIKTUVA_SMTP_USER:-info@daiktuva.lt}
+      DAIKTUVA_SMTP_PASSWORD: ${DAIKTUVA_SMTP_PASSWORD:-}
+      DAIKTUVA_SMTP_FROM_EMAIL: ${DAIKTUVA_SMTP_FROM_EMAIL:-info@daiktuva.lt}
+      DAIKTUVA_SMTP_FROM_NAME: ${DAIKTUVA_SMTP_FROM_NAME:-Daiktuva}
+      DAIKTUVA_WATCH_TOKEN: ${DAIKTUVA_WATCH_TOKEN:-}
+      MEILI_HOST: http://meilisearch:7700
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PORT', 6379);
+        define('WP_MEMORY_LIMIT', '256M');
+        define('WP_MAX_MEMORY_LIMIT', '512M');
+        define('DISALLOW_FILE_EDIT', true);
+        define('FORCE_SSL_ADMIN', true);
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+          $$_SERVER['HTTPS'] = 'on';
+        }
+    ports:
+      - "127.0.0.1:${WORDPRESS_PORT}:80"
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wp-content/themes/daiktuva-child:/var/www/html/wp-content/themes/daiktuva-child
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+    networks:
+      - internal
+      - edge
+
+  wpcli:
+    image: wordpress:cli-php8.3
+    container_name: daiktuva-wpcli
+    profiles: ["tools"]
+    depends_on:
+      db:
+        condition: service_healthy
+      wordpress:
+        condition: service_started
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_URL: ${WORDPRESS_URL}
+      WORDPRESS_TITLE: ${WORDPRESS_TITLE}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+      DAIKTUVA_SMTP_HOST: ${DAIKTUVA_SMTP_HOST:-}
+      DAIKTUVA_SMTP_PORT: ${DAIKTUVA_SMTP_PORT:-587}
+      DAIKTUVA_SMTP_SECURE: ${DAIKTUVA_SMTP_SECURE:-tls}
+      DAIKTUVA_SMTP_USER: ${DAIKTUVA_SMTP_USER:-info@daiktuva.lt}
+      DAIKTUVA_SMTP_PASSWORD: ${DAIKTUVA_SMTP_PASSWORD:-}
+      DAIKTUVA_SMTP_FROM_EMAIL: ${DAIKTUVA_SMTP_FROM_EMAIL:-info@daiktuva.lt}
+      DAIKTUVA_SMTP_FROM_NAME: ${DAIKTUVA_SMTP_FROM_NAME:-Daiktuva}
+      DAIKTUVA_WATCH_TOKEN: ${DAIKTUVA_WATCH_TOKEN:-}
+      MEILI_HOST: http://meilisearch:7700
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./wp-content/themes/daiktuva-child:/var/www/html/wp-content/themes/daiktuva-child
+      - ./scripts:/scripts:ro
+    networks:
+      - internal
+      - edge
+    entrypoint: ["sh", "/scripts/wp-init.sh"]
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.10
+    container_name: daiktuva-meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_ENV: production
+      MEILI_NO_ANALYTICS: "true"
+    volumes:
+      - meili_data:/meili_data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: daiktuva-cloudflared
+    restart: unless-stopped
+    profiles: ["tunnel"]
+    depends_on:
+      wordpress:
+        condition: service_started
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - edge
+
+volumes:
+  db_data:
+  redis_data:
+  meili_data:
+  wordpress_data:
+
+networks:
+  internal:
+    internal: true
+  edge:
